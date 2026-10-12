@@ -1,0 +1,154 @@
+/* ===================== 任务视图 ===================== */
+.tk-view { display: flex; flex: 1; min-width: 0; height: 100%; }
+.tk-view .grow { flex: 1; }
+.tk-muted { color: var(--text-3); font-size: 13px; }
+
+/* ---------- 左侧清单栏 ---------- */
+.tk-sidebar {
+  width: 365px; flex: none; background: var(--bg-2); overflow-y: auto; overflow-x: hidden;
+  padding: 22px 14px 24px 16px; display: flex; flex-direction: column;
+}
+.tk-side-group { display: flex; flex-direction: column; gap: 2px; }
+.tk-side-divider { height: 1px; background: var(--border); margin: 18px 6px 10px; }
+.tk-section {
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 14px 6px; font-size: 14px; font-weight: 600;
+  color: var(--text-3);
+}
+.tk-section-add { opacity: 0; color: var(--text-3); }
+.tk-section:hover .tk-section-add { opacity: 1; }
+.tk-side-item {
+  display: flex; align-items: center; gap: 14px; height: 48px; padding: 0 14px; border-radius: 10px; cursor: pointer; font-size: 16px;
+  color: var(--text); transition: background .12s; position: relative;
+}
+.tk-side-item:hover { background: rgba(120, 130, 160, 0.08); }
+.tk-side-item.active { background: var(--accent-soft); }
+.tk-side-icon { display: inline-flex; width: 22px; justify-content: center; color: var(--text-2); flex: none; }
+.tk-side-item.active .tk-side-icon { color: var(--text); }
+.tk-side-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tk-side-count { color: var(--text-3); font-size: 14px; min-width: 14px; text-align: right; }
+.tk-side-more { position: absolute; right: 8px; opacity: 0; background: var(--surface); color: var(--text-2); box-shadow: var(--shadow-sm); }
+.tk-side-item:hover .tk-side-more { opacity: 1; }
+.tk-side-item.has-more:hover .tk-side-count, .tk-side-item.has-more:hover > .color-dot { visibility: hidden; }
+.tk-side-item > .color-dot { margin-right: 8px; }
+.tk-emoji { font-size: 18px; line-height: 1; }
+.tk-today-icon { position: relative; display: inline-flex; }
+.tk-today-icon > span {
+  position: absolute; left: 0; right: 0; top: 7px; text-align: center; font-size: 8px; font-weight: 700; line-height: 1; letter-spacing: -0.5px;
+}
+.tk-side-hint {
+  margin: 4px 0 2px; padding: 12px 14px; border-radius: 10px; background: rgba(120, 130, 160, 0.09); color: var(--text-3); font-size: 14px;
+  line-height: 1.65;
+}
+:root[data-theme='dark'] .tk-side-hint { background: rgba(255, 255, 255, 0.05); }
+
+/* ---------- 中间内容区 ---------- */
+.tk-page { background: var(--surface); }
+.tk-collapse { margin-left: -8px; margin-right: 2px; color: var(--text-2); }
+.tk-title-emoji { font-size: 22px; }
+.tk-quick { flex: none; margin-bottom: 6px; }
+.tk-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.tk-view .task-detail { border: 1px solid var(--border-2); box-shadow: var(--shadow-sm); }
+
+/* "..." 菜单里的小药丸 */
+.tk-menu-pills { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 8px 8px; }
+.tk-menu-pills button { height: 28px; padding: 0 12px; border-radius: 999px; background: var(--surface-3); color: var(--text-2); font-size: 13px; }
+.tk-menu-pills button:hover { background: var(--accent-soft); color: var(--accent); }
+.tk-menu-pills button.on { background: var(--accent); color: #fff; }
+.tk-menu-row { cursor: pointer; }
+
+/* ---------- 列表模式 ---------- */
+.tk-list { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 20px; }
+.tk-list .task-item { min-height: 48px; }
+.tk-group + .tk-group { margin-top: 4px; }
+.tk-done .task-group-title { color: var(--text-2); }
+.tk-trash-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 10px 10px; }
+
+/* ---------- 看板模式 ---------- */
+.tk-kanban { flex: 1; min-height: 0; display: flex; gap: 14px; overflow-x: auto; overflow-y: hidden; padding: 6px 2px 16px; align-items: flex-start; }
+.tk-col {
+  width: 280px; flex: none; max-height: 100%; display: flex; flex-direction: column; background: var(--surface-2); border-radius: 14px;
+  border: 1px solid transparent; transition: border-color .12s, background .12s;
+}
+.tk-col.over { border-color: var(--accent); background: var(--accent-soft); }
+.tk-col-head { display: flex; align-items: center; gap: 8px; padding: 14px 14px 8px; font-weight: 600; font-size: 15px; }
+.tk-col-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tk-col-count { color: var(--text-3); font-weight: 400; font-size: 13px; }
+.tk-col-body { flex: 1; min-height: 40px; overflow-y: auto; padding: 0 10px; display: flex; flex-direction: column; gap: 8px; }
+.tk-card {
+  background: var(--surface); border-radius: 10px; padding: 10px 12px; box-shadow: var(--shadow-sm); cursor: grab; border: 1px solid transparent;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.tk-card:hover { border-color: var(--border); }
+.tk-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+.tk-card.done .tk-card-title { color: var(--text-3); text-decoration: line-through; }
+.tk-card-row { display: flex; align-items: flex-start; gap: 10px; }
+.tk-card-row .cb { margin-top: 2px; }
+.tk-card-title { font-size: 15px; line-height: 1.4; word-break: break-word; }
+.tk-card-meta { display: flex; align-items: center; gap: 6px; padding-left: 26px; font-size: 12px; color: var(--text-3); flex-wrap: wrap; }
+.tk-card-date.today { color: var(--accent); }
+.tk-card-date.overdue { color: var(--danger); }
+.tk-card-list { color: var(--text-3); }
+.tk-col-add { display: flex; align-items: center; gap: 8px; padding: 10px 14px 12px; color: var(--text-3); }
+.tk-col-add input { flex: 1; border: none; outline: none; background: transparent; font-size: 14px; min-width: 0; }
+.tk-col-add input::placeholder { color: var(--text-3); }
+
+/* ---------- 时间线模式 ---------- */
+.tk-timeline { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.tk-tl-toolbar { display: flex; align-items: center; gap: 8px; height: 44px; flex: none; }
+.tk-tl-month { color: var(--text-3); font-size: 15px; padding-left: 10px; }
+.tk-tl-body { flex: 1; min-height: 0; display: flex; gap: 0; }
+.tk-tl-wrap { flex: 1; min-width: 0; position: relative; display: flex; }
+.tk-tl-scroll { flex: 1; min-width: 0; overflow: auto; position: relative; }
+.tk-tl-head { position: sticky; top: 0; z-index: 3; display: flex; height: 44px; background: var(--surface); border-bottom: 1px solid var(--border-2); }
+.tk-tl-day { flex: none; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 15px; color: var(--text); border-right: 1px solid transparent; }
+.tk-tl-day.weekend { color: var(--text-3); }
+.tk-tl-day.today { color: var(--danger); font-weight: 600; }
+.tk-tl-dow { font-size: 12px; color: var(--text-3); }
+.tk-tl-day.today .tk-tl-dow { color: var(--danger); }
+.tk-tl-nav {
+  position: absolute; top: 8px; z-index: 4; width: 28px; height: 28px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-3); background: var(--surface);
+}
+.tk-tl-nav:hover { background: var(--surface-3); color: var(--text); }
+.tk-tl-nav.prev { left: 2px; }
+.tk-tl-nav.next { right: 10px; }
+.tk-tl-grid { position: relative; background-image: linear-gradient(to bottom, var(--border-2) 1px, transparent 1px); background-size: 100% 42px; }
+.tk-tl-col { position: absolute; top: 0; bottom: 0; border-right: 1px solid var(--border-2); transition: background .12s; }
+.tk-tl-col.weekend { background: rgba(120, 130, 160, 0.07); }
+.tk-tl-col.over { background: var(--accent-soft); }
+:root[data-theme='dark'] .tk-tl-col.weekend { background: rgba(255, 255, 255, 0.04); }
+.tk-tl-now { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(245, 82, 60, 0.55); z-index: 1; pointer-events: none; }
+.tk-tl-now::before { content: ''; position: absolute; top: -1px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--danger); }
+.tk-tl-bar {
+  position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px; border-radius: 8px; cursor: grab; overflow: hidden;
+  background: color-mix(in srgb, var(--bar, var(--accent)) 14%, var(--surface)); border-left: 3px solid var(--bar, var(--accent)); font-size: 14px;
+  transition: box-shadow .12s;
+}
+.tk-tl-bar:hover { box-shadow: var(--shadow-sm); }
+.tk-tl-bar.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tk-tl-bar.done { opacity: .55; }
+.tk-tl-bar.done .tk-tl-bar-title { text-decoration: line-through; }
+.tk-tl-bar-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tk-tl-bar-time { color: var(--text-3); font-size: 12px; flex: none; }
+.tk-tl-side { width: 240px; flex: none; border-left: 1px solid var(--border-2); margin-left: 10px; padding-left: 14px; display: flex; flex-direction: column; min-height: 0; }
+.tk-tl-side-head { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; height: 44px; }
+.tk-tl-side-hint { font-size: 12px; color: var(--text-3); margin-bottom: 8px; }
+.tk-tl-side-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+.tk-tl-item { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 10px; border-radius: 8px; cursor: grab; font-size: 14px; background: var(--surface-2); }
+.tk-tl-item:hover { background: var(--surface-3); }
+.tk-tl-item.selected { background: var(--accent-soft); }
+.tk-tl-item.done .tk-tl-bar-title { color: var(--text-3); text-decoration: line-through; }
+
+/* ---------- 编辑弹窗表单 ---------- */
+.tk-form { display: flex; flex-direction: column; gap: 18px; }
+.tk-field { display: flex; flex-direction: column; gap: 8px; }
+.tk-field.tk-inline { flex-direction: row; align-items: center; justify-content: space-between; }
+.tk-label { font-size: 14px; color: var(--text-2); }
+.tk-label em { font-style: normal; color: var(--text-4); font-size: 12px; margin-left: 6px; }
+.tk-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tk-chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-2); font-size: 13px; transition: all .12s;
+}
+.tk-chip:hover { background: var(--surface-2); }
+.tk-chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }

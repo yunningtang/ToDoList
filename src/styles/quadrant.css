@@ -1,0 +1,26 @@
+.quad-grid {
+  flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px; padding-bottom: 0;
+}
+.quad-card {
+  background: var(--surface); border-radius: var(--radius-lg); display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+  transition: box-shadow .15s;
+}
+.quad-card.drop-target { box-shadow: inset 0 0 0 2px var(--accent); }
+.quad-head { display: flex; align-items: center; gap: 10px; padding: 16px 20px 6px; flex: none; }
+.quad-badge {
+  width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center;
+  justify-content: center; letter-spacing: .5px; font-family: Georgia, 'Times New Roman', serif;
+}
+.quad-title { font-weight: 700; font-size: 16px; flex: 1; }
+.quad-head .actions { display: flex; gap: 2px; opacity: 0; transition: opacity .15s; }
+.quad-card:hover .quad-head .actions { opacity: 1; }
+.quad-body { flex: 1; min-height: 0; overflow: auto; padding: 0 12px 12px; display: flex; flex-direction: column; }
+.quad-body .task-item { padding-left: 12px; }
+.quad-body .task-group-title { padding-left: 12px; }
+.quad-body .task-sep { margin-left: 48px; }
+.quad-add { padding: 4px 12px 8px; }
+.quad-empty { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 16px; }
+.quad-rules .row { display: grid; grid-template-columns: 140px 1fr; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-2); }
+.quad-rules .pri-opts { display: flex; gap: 8px; }
+.quad-rules .pri-opt { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px; }
+.quad-rules .pri-opt.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }

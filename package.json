@@ -1,0 +1,31 @@
+{
+  "name": "didaclone",
+  "private": true,
+  "version": "1.0.0",
+  "description": "滴答清单风格的待办/日历/番茄/倒数日桌面应用",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "electron": "npm run build && electron .",
+    "electron:dev": "electron .",
+    "desktop": "npm run build && electron ."
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.4.11",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

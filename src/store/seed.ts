@@ -1,0 +1,226 @@
+import type { Countdown, FocusRecord, Habit, Settings, Tag, Task, TaskList } from './types'
+import { dayjs, today } from '../utils/date'
+
+const now = dayjs().toISOString()
+
+export const DEFAULT_SETTINGS: Settings = {
+  account: { name: 'Me', email: 'me@example.com', premium: true, avatar: '', backend: 'local', serverUrl: '', token: '' },
+  modules: { quadrant: true, tasks: true, calendar: true, pomodoro: true, habit: true, countdown: true },
+  smartLists: { all: false, today: true, tomorrow: false, next7: true, inbox: true, completed: true, trash: true },
+  reminders: { enabled: true, sound: true, dailyReview: false, dailyReviewTime: '09:00', defaultReminder: 'onTime' },
+  dateTime: { weekStart: 1, timeFormat: '24h', showLunar: false, showWeekNumber: true },
+  appearance: { theme: 'light', accent: '#4772FA', compact: false, sidebarCount: true, fontSize: 'normal' },
+  ai: {
+    enabled: true,
+    smartParse: true,
+    summary: false,
+    provider: 'anthropic',
+    apiKey: '',
+    baseUrl: '',
+    model: 'claude-sonnet-5-5',
+    speech: 'web',
+    whisperUrl: '',
+    whisperKey: '',
+    speechLang: 'zh-CN',
+  },
+  more: { confirmDelete: false, launchOnStartup: false, quickAddShortcut: 'Ctrl+Shift+A', language: 'zh-CN' },
+  pomodoro: {
+    pomoMinutes: 25,
+    shortBreak: 5,
+    longBreak: 15,
+    longBreakEvery: 4,
+    autoStartBreak: false,
+    autoStartPomo: false,
+    sound: true,
+    dailyGoal: 8,
+    noise: 'none',
+    noiseVolume: 50,
+  },
+  sticky: {
+    defaultColor: '#b9e8c6',
+    opacity: 100,
+    fontSize: 'normal',
+    alwaysOnTop: false,
+    hideFromTaskbar: false,
+    restoreSizeOnArrange: false,
+    gap: 'normal',
+  },
+  widgets: { todayWidget: false, calendarWidget: false, pomoWidget: false },
+  shortcuts: {
+    快速添加任务: 'Ctrl+Shift+A',
+    显示或隐藏窗口: 'Ctrl+Shift+E',
+    搜索: 'Ctrl+F',
+    新建任务: 'N',
+    完成任务: 'Ctrl+Shift+M',
+    删除任务: 'Delete',
+    设置优先级: 'Ctrl+1/2/3/4',
+    切换到任务: 'Ctrl+2',
+    切换到日历: 'Ctrl+3',
+    切换到番茄专注: 'Ctrl+4',
+  },
+  quadrantRules: {
+    '1': { priorities: [5] },
+    '2': { priorities: [3] },
+    '3': { priorities: [1] },
+    '4': { priorities: [0] },
+  },
+  quadrantGroupBy: 'list',
+  calendar: { showCompleted: true, showCountdowns: true, defaultMode: 'week' },
+}
+
+export const SEED_LISTS: TaskList[] = [{ id: 'list_week', name: '本周', color: '#4772FA', order: 0, emoji: '' }]
+
+export const SEED_TAGS: Tag[] = []
+
+export const SEED_TASKS: Task[] = [
+  {
+    id: 'task_kang',
+    title: '给Kang写邮件',
+    content: '',
+    listId: 'list_week',
+    dueDate: today(),
+    dueTime: null,
+    endTime: null,
+    priority: 3,
+    tags: [],
+    completed: false,
+    completedAt: null,
+    deleted: false,
+    deletedAt: null,
+    createdAt: now,
+    updatedAt: now,
+    order: 0,
+    reminder: null,
+    repeat: 'none',
+    subtasks: [],
+    pinned: false,
+  },
+  {
+    id: 'task_nusrat',
+    title: '给Nusrat写邮件',
+    content: '',
+    listId: 'list_week',
+    dueDate: null,
+    dueTime: null,
+    endTime: null,
+    priority: 3,
+    tags: [],
+    completed: false,
+    completedAt: null,
+    deleted: false,
+    deletedAt: null,
+    createdAt: now,
+    updatedAt: now,
+    order: 1,
+    reminder: null,
+    repeat: 'none',
+    subtasks: [],
+    pinned: false,
+  },
+  {
+    id: 'task_maher',
+    title: '给Maher写邮件',
+    content: '',
+    listId: 'list_week',
+    dueDate: null,
+    dueTime: null,
+    endTime: null,
+    priority: 3,
+    tags: [],
+    completed: false,
+    completedAt: null,
+    deleted: false,
+    deletedAt: null,
+    createdAt: now,
+    updatedAt: now,
+    order: 2,
+    reminder: null,
+    repeat: 'none',
+    subtasks: [],
+    pinned: false,
+  },
+]
+
+function rec(day: string, s: string, e: string, minutes: number, id: string): FocusRecord {
+  return {
+    id,
+    start: dayjs(`${day} ${s}`).toISOString(),
+    end: dayjs(`${day} ${e}`).toISOString(),
+    minutes,
+    mode: 'pomo',
+    taskId: null,
+    title: '专注',
+    note: '',
+  }
+}
+
+const yr = dayjs().year()
+export const SEED_FOCUS: FocusRecord[] = [
+  rec(`${yr}-09-21`, '06:59', '07:23', 24, 'f1'),
+  rec(`${yr}-09-20`, '10:30', '11:41', 54, 'f2'),
+  rec(`${yr}-09-20`, '06:01', '07:01', 60, 'f3'),
+  rec(`${yr}-09-20`, '03:16', '06:01', 62, 'f4'),
+  rec(`${yr}-09-19`, '12:34', '13:03', 28, 'f5'),
+  rec(`${yr}-09-17`, '09:42', '13:14', 198, 'f6'),
+]
+// 历史累计（不含上方记录）：总番茄 327、总专注 469h17m
+export const SEED_FOCUS_BASE = { pomos: 321, minutes: 27731 }
+
+export const SEED_COUNTDOWNS: Countdown[] = [
+  {
+    id: 'cd_love',
+    title: '',
+    date: '2025-09-25',
+    kind: 'anniversary',
+    icon: '🖤',
+    color: '#8ea6fa',
+    yearly: false,
+    showInCalendar: false,
+    createdAt: now,
+  },
+  {
+    id: 'cd_dida',
+    title: '使用滴答清单',
+    date: '2019-02-10',
+    kind: 'anniversary',
+    icon: '✅',
+    color: 'white',
+    yearly: false,
+    showInCalendar: false,
+    createdAt: now,
+  },
+  {
+    id: 'cd_weekend',
+    title: '周末',
+    date: today(),
+    kind: 'holiday',
+    icon: '🌤️',
+    color: '#f5a65b',
+    yearly: false,
+    showInCalendar: true,
+    createdAt: now,
+  },
+]
+
+export const SEED_HABITS: Habit[] = [
+  {
+    id: 'habit_read',
+    name: '阅读',
+    icon: '📖',
+    color: '#4772FA',
+    goalPerWeek: 5,
+    checkins: [],
+    createdAt: now,
+    archived: false,
+  },
+  {
+    id: 'habit_water',
+    name: '喝水',
+    icon: '💧',
+    color: '#39c2e3',
+    goalPerWeek: 7,
+    checkins: [],
+    createdAt: now,
+    archived: false,
+  },
+]

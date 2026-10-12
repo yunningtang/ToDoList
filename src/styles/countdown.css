@@ -1,0 +1,77 @@
+/* ---------- 倒数纪念日 ---------- */
+.cd-title-btn {
+  display: inline-flex; align-items: center; gap: 6px; color: inherit; font: inherit; font-weight: 700; border-radius: 8px; padding: 2px 6px; margin-left: -6px;
+  transition: background .15s;
+}
+.cd-title-btn:hover { background: var(--surface-3); }
+.cd-title-btn .chev { color: var(--text-3); }
+
+.cd-body { flex: 1; min-height: 0; overflow: auto; margin: 0 -10px; padding: 0 10px; display: flex; flex-direction: column; }
+.cd-grid { display: grid; grid-template-columns: repeat(auto-fill, 362px); gap: 36px; padding: 22px 0 30px; }
+
+.cd-card {
+  position: relative; width: 362px; height: 232px; border-radius: 20px; overflow: hidden; cursor: pointer; user-select: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #1f2329;
+  transition: transform .15s ease, box-shadow .15s ease; outline: none;
+}
+.cd-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.cd-card:focus-visible { box-shadow: 0 0 0 3px var(--accent-soft-2); }
+.cd-card.white { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); border: 1px solid var(--border-2); }
+.cd-card.white .cd-num { color: var(--accent); }
+/* 左上角的淡色方格纹理，向右下渐隐 */
+.cd-card.colored::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .55;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, .5) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, .5) 75%);
+  background-size: 18px 18px; background-position: 0 0, 9px 9px;
+  -webkit-mask-image: radial-gradient(circle at 0 0, #000 0, rgba(0, 0, 0, .6) 90px, transparent 230px);
+  mask-image: radial-gradient(circle at 0 0, #000 0, rgba(0, 0, 0, .6) 90px, transparent 230px);
+}
+.cd-card > * { position: relative; z-index: 1; }
+.cd-head { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; max-width: 300px; }
+.cd-head .ico { font-size: 22px; line-height: 1; }
+.cd-head .ttl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cd-num { font-size: 64px; font-weight: 700; line-height: 1.15; letter-spacing: -1px; padding: 0 8px; position: relative; font-variant-numeric: tabular-nums; }
+.cd-num.text { font-size: 44px; letter-spacing: 0; }
+.cd-card.colored .cd-num::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 10px; height: 10px; border-radius: 2px; background: rgba(255, 255, 255, .38); z-index: -1;
+}
+.cd-caption { font-size: 14px; opacity: .78; margin-top: 2px; }
+.cd-card.white .cd-caption { color: var(--text-2); opacity: 1; }
+.cd-pin { position: absolute; top: 14px; right: 14px; opacity: .6; }
+.cd-kind { position: absolute; top: 14px; left: 16px; font-size: 12px; opacity: .55; }
+.cd-card.white .cd-kind { color: var(--text-3); }
+
+/* 表单 */
+.cd-form .row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.cd-form .row > label { font-size: 13px; color: var(--text-3); }
+.cd-form .row.inline { flex-direction: row; align-items: center; gap: 12px; }
+.cd-form .row.inline > .input { flex: 1; }
+.cd-form .row.inline > .select { width: 130px; flex: none; }
+.cd-form .field-row { padding: 10px 0; }
+.cd-form .emoji-grid { max-height: 150px; overflow: auto; padding: 2px; }
+.cd-preview {
+  position: relative; height: 136px; border-radius: 16px; overflow: hidden; margin-bottom: 18px; color: #1f2329;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+}
+.cd-preview.white { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-2); }
+.cd-preview.white .cd-num { color: var(--accent); }
+.cd-preview .cd-head { font-size: 15px; }
+.cd-preview .cd-head .ico { font-size: 18px; }
+.cd-preview .cd-num { font-size: 40px; line-height: 1.1; }
+.cd-preview .cd-num.text { font-size: 28px; }
+.cd-preview .cd-caption { font-size: 12px; }
+.cd-preview.colored::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .55;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, .5) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, .5) 75%);
+  background-size: 14px 14px; background-position: 0 0, 7px 7px;
+  -webkit-mask-image: radial-gradient(circle at 0 0, #000 0, transparent 160px);
+  mask-image: radial-gradient(circle at 0 0, #000 0, transparent 160px);
+}
+.cd-preview > * { position: relative; z-index: 1; }
+.cd-preview.colored .cd-num::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 7px; border-radius: 2px; background: rgba(255, 255, 255, .38); z-index: -1;
+}
